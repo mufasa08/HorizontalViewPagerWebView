@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebViewClient;
 
 import com.smooz_app.moose.horizontalviewpagerwebview.R;
 
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements  ParentRequestInt
         // Set up the ViewPager with the sections adapter.
         mViewPager = (CustomViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
+        mViewPager.setOffscreenPageLimit(2);
 
     }
 
@@ -132,17 +134,20 @@ public class MainActivity extends AppCompatActivity implements  ParentRequestInt
             //load test url
             String url="";
             switch (sectionNumber) {
-                case 0:
+                case 1:
                     url="https://www.google.com/search?q=news";
                     break;
-                case 1:
+                case 2:
                     url="https://www.google.com/search?q=random";
                     break;
-                case 2:
+                case 3:
                     url="https://www.amazon.com/Hoover-UH20040-QuickVac-Bagless-Upright/dp/B004N64GH0/ref=br_dig_pdt-1?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=&pf_rd_r=0MZDRMZPKF0R2NT18GQ1&pf_rd_t=36701&pf_rd_p=abc0a418-efdb-4eb8-923e-3437111895cf&pf_rd_i=desktop";
                     break;
             }
+
             WebSettings settings=webView.getSettings();
+            webView.setWebChromeClient(new WebChromeClient());
+            webView.setWebViewClient(new WebViewClient());
             settings.setJavaScriptEnabled(true);
             webView.setScrollContainer(false);
             webView.setVerticalScrollBarEnabled(false);
